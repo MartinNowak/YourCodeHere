@@ -1,16 +1,14 @@
-#!/usr/bin/env rdmd
-
+// D is like...
 pragma(lib, "curl");
-// Might be needed because of http://d.puremagic.com/issues/show_bug.cgi?id=7044
-// (phobos2 depends on curl)
-//pragma(lib, "phobos2");
+import std.functional, std.json, std.net.curl,
+    std.stdio;
 
-import std.stdio;
-import std.net.curl;
-import std.json;
+alias getJSON = pipe!(get, parseJSON);
 
 void main()
 {
-    auto json = parseJSON(get("http://itsthisforthat.com/api.php?json"));
-    writeln("So, basically D is like a ", json["this"].str, " for ", json["that"].str);
+    auto json = getJSON(
+        "itsthisforthat.com/api.php?json");
+    writefln("So, basically D is like a %s for %s",
+        json["this"].str, json["that"].str);
 }
