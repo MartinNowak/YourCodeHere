@@ -16,7 +16,7 @@ void main()
 
     void process(in char[] token)
     {
-        alias Ops = AliasSeq!("+", "-", "*", "/", "%");
+        alias Ops = AliasSeq!("+", "-", "*", "/", "%", "^^");
     Lswitch:
         switch (token)
         {
